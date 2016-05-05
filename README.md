@@ -8,3 +8,31 @@ sise-restful-api-tests
 > SISE-RESTful-API tests for your project
 
 # Usage
+
+Install the module in your own project as a dependency
+
+```sh
+> npm install sise-restful-api-tests
+```
+
+Then create a `test.js` file with the following
+
+```JavaScript
+// Migrations Data
+var migrations = require('../node_modules/sise-db/test/migrations.json')
+
+// Your RESTful HTTP API implementation entry point
+var api = require('../src/index.js')
+
+// This are the tests that will be run
+var test = require('sise-restful-api-tests').base
+
+// Run the tests
+test(migrations, api)
+```
+
+Then, run that script by doing
+
+```sh
+> node test.js
+```
