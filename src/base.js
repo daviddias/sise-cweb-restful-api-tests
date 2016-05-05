@@ -1,10 +1,11 @@
 var test = require('tape')
-// var wreck = require('wreck')
+var wreck = require('wreck')
 var SISEDB = require('sise-db')
 
 module.exports = function (migrations, api) {
   var db
   process.env.PORT = '10000'
+  var url = 'http://localhost:10000'
 
   test('create sise db', function (t) {
     db = new SISEDB()
@@ -26,22 +27,45 @@ module.exports = function (migrations, api) {
   })
 
   test('get insurance types', function (t) {
+    wreck.get(url + '/insurance', { json: true }, function (err, res, payload) {
+      t.ifErr(err)
+      var expected = [ 'base', 'devices', 'fire', 'burglar', 'naturalDisaster' ]
+      t.deepEqual(payload, expected)
+      t.end()
+    })
+  })
+
+  test('get the devices insurance info', function (t) {
+    wreck.get(url + '/insurance/devices', { json: true }, function (err, res, payload) {
+      t.ifErr(err)
+      var expected = {
+        costPerYear: 1000,
+        description: 'Covers problems related with devices such as washing machine, fridge, etc, up to 5000 in repairs',
+        discountPerYear: 0,
+        maxDiscount: 0
+      }
+      t.deepEqual(payload, expected)
+      t.end()
+    })
+  })
+
+  test.skip('request a new quote', function (t) {
     t.end()
   })
 
-  test('request a new quote', function (t) {
+  test.skip('get quotes for a user', function (t) {
     t.end()
   })
 
-  test('get quotes for a user', function (t) {
+  test.skip('fail to get quotes of non existing user', function (t) {
     t.end()
   })
 
-  test('handle turbolence', function (t) {
+  test.skip('handle turbolence', function (t) {
     t.end()
   })
 
-  test('service is a tad slow', function (t) {
+  test.skip('service is a tad slow', function (t) {
     // make sure that get can't return something that was just posted and have to wait for 10 secs)
     t.end()
   })
