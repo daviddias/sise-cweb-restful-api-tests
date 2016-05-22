@@ -29,34 +29,62 @@ module.exports = function (migrations, api) {
   test('get insurance types', function (t) {
     wreck.get(url + '/insurance', { json: true }, function (err, res, payload) {
       t.ifErr(err)
+      var expected = [
+        { id: 'aaaa', name: 'Base' },
+        { id: 'aaab', name: 'Electronic Devices' },
+        { id: 'aaac', name: 'Fire Hazards' },
+        { id: 'aaad', name: 'Theft' },
+        { id: 'aaae', name: 'Natural Disasters' }
+      ]
+      t.deepEqual(payload, expected)
+      t.end()
+    })
+  })
+
+  /*
+  test('get property times types', function (t) {
+    wreck.get(url + '/insurance', { json: true }, function (err, res, payload) {
+      t.ifErr(err)
       var expected = [ 'base', 'devices', 'fire', 'burglar', 'naturalDisaster' ]
       t.deepEqual(payload, expected)
       t.end()
     })
   })
+  */
 
+  /*
   test('get the devices insurance info', function (t) {
-    wreck.get(url + '/insurance/devices', { json: true }, function (err, res, payload) {
+    wreck.get(url + '/insurance/aaab', { json: true }, function (err, res, payload) {
       t.ifErr(err)
       var expected = {
-        costPerYear: 1000,
+        name: 'Electronic Devices',
         description: 'Covers problems related with devices such as washing machine, fridge, etc, up to 5000 in repairs',
-        discountPerYear: 0,
-        maxDiscount: 0
       }
       t.deepEqual(payload, expected)
       t.end()
     })
   })
+  */
 
+  /*
   test.skip('request a new quote', function (t) {
     t.end()
   })
+  */
 
-  test.skip('get quotes for a user', function (t) {
+  /*
+  test.skip('get quotes for a user (by NIF)', function (t) {
     t.end()
   })
+  */
 
+  /*
+  test.skip('get a quote (by ID)', function (t) {
+    t.end()
+  })
+  */
+
+  /*
   test.skip('fail to get quotes of non existing user', function (t) {
     t.end()
   })
@@ -69,6 +97,7 @@ module.exports = function (migrations, api) {
     // make sure that get can't return something that was just posted and have to wait for 10 secs)
     t.end()
   })
+  */
 
   test('stop the API', function (t) {
     api.stop(function (err) {

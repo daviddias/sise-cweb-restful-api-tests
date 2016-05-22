@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/diasdavid/sise-restful-api-tests#readme",
   "dependencies": {
-    "sise-db": "0.0.3",
+    "sise-db": "0.1.1",
     "tape": "^4.5.1",
     "wreck": "^7.2.0"
   },
