@@ -26,6 +26,8 @@ module.exports = function (migrations, api) {
     })
   })
 
+  // BASIC TESTS
+
   test('get insurance types', function (t) {
     wreck.get(url + '/insurance', { json: true }, function (err, res, payload) {
       t.ifErr(err)
@@ -41,30 +43,36 @@ module.exports = function (migrations, api) {
     })
   })
 
-  /*
   test('get property times types', function (t) {
-    wreck.get(url + '/insurance', { json: true }, function (err, res, payload) {
+    wreck.get(url + '/property', { json: true }, function (err, res, payload) {
       t.ifErr(err)
-      var expected = [ 'base', 'devices', 'fire', 'burglar', 'naturalDisaster' ]
+      var expected = [
+        'Apartment T0',
+        'Apartment T1',
+        'Apartment T2',
+        'Apartment T3',
+        'Apartment T4',
+        'Apartment T5',
+        'Apartment T6',
+        'Castle',
+        'Cozy bridge'
+      ]
       t.deepEqual(payload, expected)
       t.end()
     })
   })
-  */
 
-  /*
   test('get the devices insurance info', function (t) {
     wreck.get(url + '/insurance/aaab', { json: true }, function (err, res, payload) {
       t.ifErr(err)
       var expected = {
         name: 'Electronic Devices',
-        description: 'Covers problems related with devices such as washing machine, fridge, etc, up to 5000 in repairs',
+        description: 'Covers problems related with devices such as washing machine, fridge, etc, up to 5000 in repairs'
       }
       t.deepEqual(payload, expected)
       t.end()
     })
   })
-  */
 
   /*
   test.skip('request a new quote', function (t) {
@@ -83,6 +91,8 @@ module.exports = function (migrations, api) {
     t.end()
   })
   */
+
+  // ADVANCED TESTS
 
   /*
   test.skip('fail to get quotes of non existing user', function (t) {
