@@ -1,6 +1,6 @@
 {
   "name": "sise-restful-api-tests",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Tests for the SISE CWEB Project",
   "main": "src/index.js",
   "scripts": {
