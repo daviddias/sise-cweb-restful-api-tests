@@ -74,23 +74,78 @@ module.exports = function (migrations, api) {
     })
   })
 
-  /*
-  test.skip('request a new quote', function (t) {
-    t.end()
-  })
-  */
+  var quoteId
 
-  /*
-  test.skip('get quotes for a user (by NIF)', function (t) {
-    t.end()
+  test('request a new quote', function (t) {
+    wreck.post(url + '/insurance/quote', {
+      payload: JSON.stringify({
+        quote: {
+          insurances: [
+            'Base'
+          ],
+          property: {
+            type: 'Cozy Bridge',
+            year: 1987,
+            value: 200000,
+            area: 100
+          },
+          user: {
+            name: 'Jessy',
+            email: 'callme@maybe.com',
+            nif: '112233445'
+          }
+        }
+      }),
+      json: true
+    }, function (err, res, payload) {
+      t.ifErr(err)
+      quoteId = payload.quoteId
+      t.ok(payload.quoteId)
+      t.end()
+    })
   })
-  */
 
-  /*
-  test.skip('get a quote (by ID)', function (t) {
-    t.end()
+  test('get quotes for a user (by NIF)', function (t) {
+    wreck.get(url + '/insurance/quote?nif=112233445', {
+      json: true
+    }, function (err, res, payload) {
+      t.ifErr(err)
+      var expected = [
+        {
+          insurances: ['Base'],
+          property: {
+            type: 'Cozy Bridge',
+            year: 1987,
+            value: 200000,
+            area: 100
+          }
+        }
+      ]
+      t.deepEqual(payload[0].insurances, expected[0].insurances)
+      t.deepEqual(payload[0].property, expected[0].property)
+      t.end()
+    })
   })
-  */
+
+  test('get a quote (by ID)', function (t) {
+    wreck.get(url + '/insurance/quote?id=' + quoteId, {
+      json: true
+    }, function (err, res, payload) {
+      t.ifErr(err)
+      var expected = {
+        insurances: [ 'Base' ],
+        property: {
+          area: 100,
+          type: 'Cozy Bridge',
+          value: 200000,
+          year: 1987
+        }
+      }
+      t.deepEqual(payload.insurances, expected.insurances)
+      t.deepEqual(payload.property, expected.property)
+      t.end()
+    })
+  })
 
   // ADVANCED TESTS
 
