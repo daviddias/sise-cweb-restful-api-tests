@@ -43,25 +43,6 @@ module.exports = function (migrations, api) {
     })
   })
 
-  test('get property times types', function (t) {
-    wreck.get(url + '/property', { json: true }, function (err, res, payload) {
-      t.ifErr(err)
-      var expected = [
-        'Apartment T0',
-        'Apartment T1',
-        'Apartment T2',
-        'Apartment T3',
-        'Apartment T4',
-        'Apartment T5',
-        'Apartment T6',
-        'Castle',
-        'Cozy bridge'
-      ]
-      t.deepEqual(payload, expected)
-      t.end()
-    })
-  })
-
   test('get the devices insurance info', function (t) {
     wreck.get(url + '/insurance/aaab', { json: true }, function (err, res, payload) {
       t.ifErr(err)
@@ -76,19 +57,13 @@ module.exports = function (migrations, api) {
 
   var quoteId
 
+  // TODO
   test('request a new quote', function (t) {
     wreck.post(url + '/insurance/quote', {
       payload: JSON.stringify({
         quote: {
-          insurances: [
-            'Base'
-          ],
-          property: {
-            type: 'Cozy Bridge',
-            year: 1987,
-            value: 200000,
-            area: 100
-          },
+          insurance: 'Base',
+          value: 200000,
           user: {
             name: 'Jessy',
             email: 'callme@maybe.com',
@@ -99,30 +74,8 @@ module.exports = function (migrations, api) {
       json: true
     }, function (err, res, payload) {
       t.ifErr(err)
-      quoteId = payload.quoteId
-      t.ok(payload.quoteId)
-      t.end()
-    })
-  })
-
-  test('get quotes for a user (by NIF)', function (t) {
-    wreck.get(url + '/insurance/quote?nif=112233445', {
-      json: true
-    }, function (err, res, payload) {
-      t.ifErr(err)
-      var expected = [
-        {
-          insurances: ['Base'],
-          property: {
-            type: 'Cozy Bridge',
-            year: 1987,
-            value: 200000,
-            area: 100
-          }
-        }
-      ]
-      t.deepEqual(payload[0].insurances, expected[0].insurances)
-      t.deepEqual(payload[0].property, expected[0].property)
+      quoteId = payload.id
+      t.ok(payload.id)
       t.end()
     })
   })
@@ -133,16 +86,11 @@ module.exports = function (migrations, api) {
     }, function (err, res, payload) {
       t.ifErr(err)
       var expected = {
-        insurances: [ 'Base' ],
-        property: {
-          area: 100,
-          type: 'Cozy Bridge',
-          value: 200000,
-          year: 1987
-        }
+        insurance: 'Base',
+        value: 200000
       }
-      t.deepEqual(payload.insurances, expected.insurances)
-      t.deepEqual(payload.property, expected.property)
+      t.equal(payload.insurance, expected.insurance)
+      t.equal(payload.value, expected.value)
       t.end()
     })
   })
@@ -150,10 +98,6 @@ module.exports = function (migrations, api) {
   // ADVANCED TESTS
 
   /*
-  test.skip('fail to get quotes of non existing user', function (t) {
-    t.end()
-  })
-
   test.skip('handle turbolence', function (t) {
     t.end()
   })
