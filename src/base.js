@@ -73,8 +73,11 @@ module.exports = function (migrations, api) {
       json: true
     }, function (err, res, payload) {
       t.ifErr(err)
-      quoteId = payload.id
-      t.ok(payload.id)
+      t.ok(payload, 'payload should not be undefined')
+      if (payload) {
+        quoteId = payload.id
+        t.ok(payload.id)
+      }
       t.end()
     })
   })
@@ -84,12 +87,15 @@ module.exports = function (migrations, api) {
       json: true
     }, function (err, res, payload) {
       t.ifErr(err)
-      var expected = {
-        insurance: 'Base',
-        value: 200000
+      t.ok(payload, 'payload should not be undefined')
+      if (payload) {
+        var expected = {
+          insurance: 'Base',
+          value: 200000
+        }
+        t.equal(payload.insurance, expected.insurance)
+        t.equal(payload.value, expected.value)
       }
-      t.equal(payload.insurance, expected.insurance)
-      t.equal(payload.value, expected.value)
       t.end()
     })
   })
