@@ -23,11 +23,11 @@
   "homepage": "https://github.com/diasdavid/sise-restful-api-tests#readme",
   "dependencies": {
     "sise-db": "0.1.1",
-    "tape": "^4.5.1",
-    "wreck": "^7.2.0"
+    "tape": "^4.6.3",
+    "wreck": "^10.0.0"
   },
   "devDependencies": {
-    "pre-commit": "^1.1.2",
-    "standard": "^7.0.1"
+    "pre-commit": "^1.2.2",
+    "standard": "^8.6.0"
   }
 }

@@ -57,7 +57,6 @@ module.exports = function (migrations, api) {
 
   var quoteId
 
-  // TODO
   test('request a new quote', function (t) {
     wreck.post(url + '/insurance/quote', {
       payload: JSON.stringify({
