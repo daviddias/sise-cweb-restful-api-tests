@@ -15,18 +15,17 @@
     "CWEB",
     "IST"
   ],
-  "author": "David Dias (mail@daviddias.me)",
+  "author": "David Dias <mail@daviddias.me>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/diasdavid/sise-cweb-restful-api-tests/issues"
   },
   "homepage": "https://github.com/diasdavid/sise-cweb-restful-api-tests#readme",
   "dependencies": {
-    "sise-db": "0.1.1",
+    "sise-cweb-data": "^0.2.2",
+    "sise-cweb-db": "~0.3.0",
     "tape": "^4.6.3",
     "wreck": "^10.0.0"
   },
-  "devDependencies": {
-    "standard": "^8.6.0"
-  }
+  "devDependencies": {}
 }

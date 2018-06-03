@@ -1,6 +1,6 @@
 var test = require('tape')
 var wreck = require('wreck')
-var SISEDB = require('sise-db')
+var SISEDB = require('sise-cweb-db')
 
 module.exports = function (migrations, api) {
   var db
@@ -31,25 +31,20 @@ module.exports = function (migrations, api) {
   test('get insurance types', function (t) {
     wreck.get(url + '/insurance', { json: true }, function (err, res, payload) {
       t.ifErr(err)
-      var expected = [
-        { id: 'aaaa', name: 'Base' },
-        { id: 'aaab', name: 'Electronic Devices' },
-        { id: 'aaac', name: 'Fire Hazards' },
-        { id: 'aaad', name: 'Theft' },
-        { id: 'aaae', name: 'Natural Disasters' }
-      ]
+      var expected = Object.keys(migrations.insurances).map((key) => {
+        return { id: key, name: migrations.insurances[key].name }
+      })
       t.deepEqual(payload, expected)
       t.end()
     })
   })
 
   test('get the devices insurance info', function (t) {
-    wreck.get(url + '/insurance/aaab', { json: true }, function (err, res, payload) {
+    var key = '6b3a331b7ebd1842a6bbd56755ebbfc6'
+    var expected = migrations.insurances[key]
+
+    wreck.get(url + '/insurance/' + key, { json: true }, function (err, res, payload) {
       t.ifErr(err)
-      var expected = {
-        name: 'Electronic Devices',
-        description: 'Covers problems related with devices such as washing machine, fridge, etc, up to 5000 in repairs'
-      }
       t.deepEqual(payload, expected)
       t.end()
     })
@@ -61,7 +56,7 @@ module.exports = function (migrations, api) {
     wreck.post(url + '/insurance/quote', {
       payload: JSON.stringify({
         quote: {
-          insurance: 'Base',
+          insurance: 'Car',
           value: 200000,
           user: {
             name: 'Jessy',
@@ -90,7 +85,7 @@ module.exports = function (migrations, api) {
       t.ok(payload, 'payload should not be undefined')
       if (payload) {
         var expected = {
-          insurance: 'Base',
+          insurance: 'Car',
           value: 200000
         }
         t.equal(payload.insurance, expected.insurance)
