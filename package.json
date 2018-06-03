@@ -1,5 +1,5 @@
 {
-  "name": "sise-restful-api-tests",
+  "name": "sise-cweb-restful-api-tests",
   "version": "0.2.3",
   "description": "Tests for the SISE CWEB Project",
   "main": "src/index.js",

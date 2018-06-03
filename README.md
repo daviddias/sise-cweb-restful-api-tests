@@ -1,11 +1,11 @@
-sise-restful-api-tests
-======================
+sise-cweb-restful-api-tests
+===========================
 
 [![](https://img.shields.io/badge/INESC-GSD-brightgreen.svg?style=flat-square)](http://www.gsd.inesc-id.pt/)
 [![](https://img.shields.io/badge/TÉCNICO-LISBOA-blue.svg?style=flat-square)](http://tecnico.ulisboa.pt/)
 [![](https://img.shields.io/badge/SISE-CWEB-brightgreen.svg?style=flat-square)](http://tecnico.ulisboa.pt/)
 
-> SISE-RESTful-API tests for your project
+> Tests for your CWEB project
 
 # Usage
 
@@ -25,7 +25,7 @@ var migrations = require('../node_modules/sise-db/test/migrations.json')
 var api = require('../src/index.js')
 
 // This are the tests that will be run
-var test = require('sise-restful-api-tests').base
+var test = require('sise-cweb-restful-api-tests').base
 
 // Run the tests
 test(migrations, api)
