@@ -4,11 +4,11 @@
   "description": "Tests for the SISE CWEB Project",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "test": "exit 0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/diasdavid/sise-restful-api-tests.git"
+    "url": "git+https://github.com/diasdavid/sise-cweb-restful-api-tests.git"
   },
   "keywords": [
     "SISE",
@@ -18,16 +18,15 @@
   "author": "David Dias (mail@daviddias.me)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/diasdavid/sise-restful-api-tests/issues"
+    "url": "https://github.com/diasdavid/sise-cweb-restful-api-tests/issues"
   },
-  "homepage": "https://github.com/diasdavid/sise-restful-api-tests#readme",
+  "homepage": "https://github.com/diasdavid/sise-cweb-restful-api-tests#readme",
   "dependencies": {
     "sise-db": "0.1.1",
     "tape": "^4.6.3",
     "wreck": "^10.0.0"
   },
   "devDependencies": {
-    "pre-commit": "^1.2.2",
     "standard": "^8.6.0"
   }
 }
